@@ -3,13 +3,9 @@ package matrix
 // Matrix interface defines the default contract for a matrix.
 type Matrix interface {
 
-	// MultiplyReal performs multiplication of this Matrix by a real number "r" and returns result,
+	// MultiplyScalar performs multiplication of this Matrix by a scalar "s" and returns result,
 	// without changing properties of this Matrix (no side effects).
-	MultiplyReal(r int) Matrix
-
-	// MultiplyComplex performs multiplication of this Matrix by a complex number "c" and returns result,
-	// without changing properties of this Matrix (no side effects).
-	MultiplyComplex(c float64) Matrix
+	MultiplyScalar(s int) Matrix
 
 	// Add performs addition of the m Matrix to this Matrix and returns result,
 	// without changing properties of this Matrix (no side effects).
@@ -19,10 +15,15 @@ type Matrix interface {
 	// without changing properties of this Matrix (no side effects).
 	Multiply(m Matrix) Matrix
 
-	// Transpose returns transposed version of this Matrix, 
+	// Transpose returns transposed version of this Matrix,
 	// without changing properties of this Matrix (no side effects).
 	Transpose() Matrix
+
+	// IsIdentity returns true in case if this Matrix is an identity matrix.
+	IsIdentity() bool
 }
 
-// M - is a default implementation of matrix.
-type M struct {}
+// matrix - is default implementation of a matrix.
+type matrix struct {
+	bras []Vector
+}
