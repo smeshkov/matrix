@@ -41,14 +41,14 @@ type Vector interface {
 	IsOrthogonal(v Vector) bool
 }
 
-// vector - is a default implementation of a vector.
+// vector - is a default implementation of a Vector.
 type vector struct {
-	v []int
+	e []int
 }
 
-func newVector(v []int) *vector {
-	res := &vector{v: make([]int, len(v))}
-	copy(res.v, v)
+func newVector(e []int) *vector {
+	res := &vector{e: make([]int, len(e))}
+	copy(res.e, e)
 	return res
 }
 
@@ -58,18 +58,18 @@ func DimV(n int) Vector {
 }
 
 // V creates and returns new instance of a Vector,
-// with the coordinates based of given slice of scalars.
-func V(v []int) Vector {
-	return newVector(v)
+// with the entries based of given slice of scalars.
+func V(e []int) Vector {
+	return newVector(e)
 }
 
 func (v *vector) Dim() int {
-	return len(v.v)
+	return len(v.e)
 }
 
 func (v *vector) ForEach(fn func(int, int) bool) {
-	for i, s := range v.v {
-		if !fn(i, s) {
+	for i, n := range v.e {
+		if !fn(i, n) {
 			return
 		}
 	}
@@ -80,26 +80,26 @@ func (v *vector) Equals(vec Vector) bool {
 		return false
 	}
 	ok := true
-	vec.ForEach(func(i int, s int) bool {
-		ok = v.v[i] == s
+	vec.ForEach(func(i int, n int) bool {
+		ok = v.e[i] == n
 		return ok
 	})
 	return ok
 }
 
 func (v *vector) MultiplyScalar(s int) Vector {
-	res := newVector(v.v)
+	res := newVector(v.e)
 	res.ForEach(func(i int, n int) bool {
-		res.v[i] = n * s
+		res.e[i] = n * s
 		return true
 	})
 	return res
 }
 
 func (v *vector) Add(vec Vector) Vector {
-	res := newVector(v.v)
+	res := newVector(v.e)
 	vec.ForEach(func(i int, n int) bool {
-		res.v[i] += n
+		res.e[i] += n
 		return true
 	})
 	return res
@@ -108,7 +108,7 @@ func (v *vector) Add(vec Vector) Vector {
 func (v *vector) Multiply(vec Vector) int {
 	var x int
 	vec.ForEach(func(i int, n int) bool {
-		x += v.v[i] * n
+		x += v.e[i] * n
 		return true
 	})
 	return x
