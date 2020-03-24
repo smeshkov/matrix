@@ -163,7 +163,7 @@ func (mx *matrix) Multiply(m Matrix) Matrix {
 	res.ForEach(func(r, c, e int) bool {
 		var entry int
 		for i := 0; i < cols; i++ {
-			entry += mx.Entry(r, i) + m.Entry(i, c)
+			entry += mx.Entry(r, i) * m.Entry(i, c)
 		}
 		res.SetEntry(r, c, entry)
 		return true
