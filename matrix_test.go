@@ -198,3 +198,42 @@ func Test_Matrix_Transpose(t *testing.T) {
 	})
 	assert.True(t, a.Transpose().Equals(b))
 }
+
+func Test_Matrix_Transpose_2(t *testing.T) {
+	a := M([]Vector{
+		V([]int{1, 2}),
+		V([]int{-4, 3}),
+		V([]int{2, 0}),
+	})
+	b := M([]Vector{
+		V([]int{1, -4, 2}),
+		V([]int{2, 3, 0}),
+	})
+	assert.True(t, a.Transpose().Equals(b))
+}
+
+func Test_Matrix_IsIdentity(t *testing.T) {
+	assert.True(t, IdentityM(2).IsIdentity())
+	assert.True(t, IdentityM(3).IsIdentity())
+	assert.True(t, IdentityM(4).IsIdentity())
+	assert.True(t, IdentityM(5).IsIdentity())
+	assert.True(t, M([]Vector{
+		V([]int{1, 0}),
+		V([]int{0, 1}),
+	}).IsIdentity())
+	assert.True(t, M([]Vector{
+		V([]int{1, 0, 0}),
+		V([]int{0, 1, 0}),
+		V([]int{0, 0, 1}),
+	}).IsIdentity())
+
+	assert.False(t, M([]Vector{
+		V([]int{0, 1}),
+		V([]int{1, 0}),
+	}).IsIdentity())
+	assert.False(t, M([]Vector{
+		V([]int{0, 1, 0}),
+		V([]int{0, 1, 0}),
+		V([]int{1, 0, 1}),
+	}).IsIdentity())
+}

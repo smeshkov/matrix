@@ -183,5 +183,14 @@ func (mx *matrix) Transpose() Matrix {
 }
 
 func (mx *matrix) IsIdentity() bool {
-	return false
+	var ok bool
+	mx.ForEach(func(r, c, e int) bool {
+		if r == c {
+			ok = e == 1
+		} else {
+			ok = e == 0
+		}
+		return ok
+	})
+	return ok
 }
