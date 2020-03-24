@@ -185,3 +185,16 @@ func Test_Matrix_Multiply(t *testing.T) {
 	})
 	assert.True(t, a.Multiply(b).Equals(c))
 }
+
+func Test_Matrix_Transpose(t *testing.T) {
+	a := M([]Vector{
+		V([]int{1, -4, 2}),
+		V([]int{2, 3, 0}),
+	})
+	b := M([]Vector{
+		V([]int{1, 2}),
+		V([]int{-4, 3}),
+		V([]int{2, 0}),
+	})
+	assert.True(t, a.Transpose().Equals(b))
+}

@@ -172,7 +172,14 @@ func (mx *matrix) Multiply(m Matrix) Matrix {
 }
 
 func (mx *matrix) Transpose() Matrix {
-	return nil
+	res := newMatrix(mx.cs, mx.rs, make([]int, mx.rs*mx.cs))
+
+	mx.ForEach(func(r, c, e int) bool {
+		res.es[r+c*mx.rs] = e
+		return true
+	})
+
+	return res
 }
 
 func (mx *matrix) IsIdentity() bool {
